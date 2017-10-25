@@ -73,12 +73,13 @@ function getNumberUser() {
         }
         save.total = tmp.total;
         save.onb = tmp.onb;
-        if (Led1.readSync() === 0) {
-          Led1.writeSync(1);
-        }
-        if (Led2.readSync() === 0) {
-          Led2.writeSync(1);
-        }
+        config.flash(Led1, 500, 2000);
+        // if (Led1.readSync() === 0) {
+        //   Led1.writeSync(1);
+        // }
+        // if (Led2.readSync() === 0) {
+        //   Led2.writeSync(1);
+        // }
       }
   	})
 	);
@@ -90,12 +91,10 @@ function getNumberUser() {
 var debug = (process.env.DEBUG === 'true' ? true : false) || false;
 var time = config.duree;
 var counter = config.decompte;
-console.log(time, "ms", counter, "s, debug:", debug);
-
+console.log(time + "ms, " + counter + "s, debug: " + debug);
 
 var launch = false;
 var inter = null;
-
 
 function showInter() {
   counter -= 1;
