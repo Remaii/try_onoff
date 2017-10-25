@@ -15,13 +15,13 @@ var inter = null;
 
 function verifTotal(led, data, key) {
   if (data[key] > save.total) {
-    if (debug) { console.log('tmp.total > save.total'); }
+    if (debug) { console.log('data[key] > save.total'); }
 
     if (led.readSync() === 0) {
       led.writeSync(1);
     }
   } else {
-    if (debug) { console.log('tmp.total <= save.total'); }
+    if (debug) { console.log('data[key] <= save.total'); }
 
     if (led.readSync() === 1) {
       led.writeSync(0);
@@ -32,17 +32,17 @@ function verifTotal(led, data, key) {
 
 function verifOnb(led, data, key) {
   if (data[key] < save.onb) {
-    if (debug) { console.log('tmp.onb < save.onb'); }
+    if (debug) { console.log('data[key] < save.onb'); }
 
     if (led.readSync() === 0) {
       led.writeSync(1);
     }
   } else if (data[key] > save.onb) {
-    if (debug) { console.log('tmp.onb > save.onb'); }
+    if (debug) { console.log('data[key] > save.onb'); }
 
     config.flash(led, 250, 10000);
   } else {
-    if (debug) { console.log('tmp.onb >= save.onb'); }
+    if (debug) { console.log('data[key] >= save.onb'); }
 
     if (led.readSync() === 1) {
       led.writeSync(0);
@@ -51,14 +51,14 @@ function verifOnb(led, data, key) {
   save.onb = data[key];
 }
 
-function getNumberUser() {
+function getDataAndCompare() {
   request(config.options, function(err, result, body) {
     if (err) { console.log('Request Error:', err); }
     console.log('Response Body:', body);
     var tmp = JSON.parse(body);
     
     if (save.total && save.onb) {
-      if (debug) { console.log('save.total is define'); }
+      if (debug) { console.log('save is fully define', save); }
       verifTotal(Led1, tmp, 'total');
       verifOnb(Led2, tmp, 'onb');
     }
@@ -81,18 +81,17 @@ function showInter() {
 
 function showTime() {
   clearInterval(inter);
-  getNumberUser();
+  getDataAndCompare();
   counter = config.decompte;
   launch = false;
   inter = setInterval(showInter, 1000);
   setTimeout(showTime, time);
 }
 
-
 if (!launch) {
   launch = true;
   console.log('launch:', launch, '=>', time + "ms, " + counter + "s, debug: " + debug);
-  getNumberUser();
+  getDataAndCompare();
   if (debug) { console.log('save', save); }
   inter = setInterval(showInter, 1000);
   setTimeout(showTime, time);
