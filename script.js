@@ -8,7 +8,7 @@ var Led2 = new gpio(27, 'out');
 
 var save = {};
 
-function verifUpTo(led, data, key) {
+function verifTotal(led, data, key) {
   if (data[key] > save.total) {
     if (debug) { console.log('tmp.total > save.total'); }
 
@@ -25,7 +25,7 @@ function verifUpTo(led, data, key) {
   save.total = data[key];
 }
 
-function verifDiffOff(led, data, key) {
+function verifOnb(led, data, key) {
   if (data[key] < save.onb) {
     if (debug) { console.log('tmp.onb < save.onb'); }
 
@@ -47,46 +47,25 @@ function verifDiffOff(led, data, key) {
 }
 
 function getNumberUser() {
-	var options = {
-    method: 'GET',
-    url: config.url,
-    rejectUnauthorized: false,
-    headers: {
-    	'Content-Type':'x-www-form-urlencoded'
+	request(config.options, function(err, result, body) {
+    if (err) { console.log('Request Error:', err); }
+    console.log('Response Body:', body);
+    var tmp = JSON.parse(body);
+    
+    if (save.total && save.onb) {
+      if (debug) { console.log('save.total is define'); }
+      verifTotal(Led1, tmp, 'total');
+      verifOnb(Led2, tmp, 'onb');
     }
-  };
-  // var p = [];
-  // p.push(
-  	request(options, function(err, result, body) {
-	    if (err) {
-	    	console.log('error:', err);
-	    }
-	    console.log('Body:', body);
-	    
-      var tmp = JSON.parse(body);
-
-	    if (save.total && save.onb) {
-        if (debug) {
-          console.log('save.total is define');
-        }
-        verifUpTo(Led1, tmp, 'total');
-        verifDiffOff(Led2, tmp, 'onb');
-      }
-      else {
-        if (debug) {
-          console.log('save.total is undefined');
-        }
-        save.total = tmp.total;
-        save.onb = tmp.onb;
-        config.flash(Led1, 100, 1000);
-        config.flash(Led2, 100, 1000);
-      }
-  	})
-	// );
-
-  // Promise.all(p);
+    else {
+      if (debug) { console.log('firstLaunch save:', save); }
+      save.total = tmp.total;
+      save.onb = tmp.onb;
+      config.flash(Led1, 100, 1000);
+      config.flash(Led2, 100, 1000);
+    }
+	});
 }
-
 
 var debug = (process.env.DEBUG === 'true' ? true : false) || false;
 var time = config.duree;
