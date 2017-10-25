@@ -14,15 +14,13 @@ var flash = function(led, timeval, time) {
 		} else {
 			led.writeSync(0);
 		}
-	}
-
+	};
 	function showTime() {
 	  clearInterval(inter);
 	  if (led.readSync() === 1) {
 			led.writeSync(0);
 		}
-	}
-
+	};
 	inter = setInterval(showInter, timeval);
   setTimeout(showTime, time);
 }
