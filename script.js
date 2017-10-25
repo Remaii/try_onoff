@@ -28,50 +28,51 @@ function getNumberUser() {
       var tmp = JSON.parse(body);
 
 	    if (save.total) {
-        
         if (debug) {
           console.log('save.total is define');
         }
-
         if (tmp.total > save.total) {
-
           if (debug) {
             console.log('tmp.total > save.total');
           }
-          
           save.total = tmp.total;
-          
           if (Led1.readSync() === 0) {
             Led1.writeSync(1);
           }
-          if (Led2.readSync() === 0) {
-            Led2.writeSync(1);
-          }
-
         } else {
-
           if (debug) {
             console.log('tmp.total <= save.total');
-          }
-          
+          }          
           save.total = tmp.total;
-
           if (Led1.readSync() === 1) {
             Led1.writeSync(0);
           }
+        }
+        if (tmp.onb < save.onb) {
+
+          if (debug) {
+            console.log('tmp.onb < save.onb');
+          }
+          save.onb = tmp.onb;
+          if (Led2.readSync() === 0) {
+            Led2.writeSync(1);
+          }
+        } else {
+          if (debug) {
+            console.log('tmp.onb >= save.onb');
+          }
+          save.onb = tmp.onb;
           if (Led2.readSync() === 1) {
             Led2.writeSync(0);
           }
         }
 
       } else {
-        
         if (debug) {
           console.log('save.total is undefined');
         }
-        
         save.total = tmp.total;
-        
+        save.onb = tmp.onb;
         if (Led1.readSync() === 0) {
           Led1.writeSync(1);
         }
