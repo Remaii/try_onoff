@@ -55,8 +55,8 @@ function getNumberUser() {
     	'Content-Type':'x-www-form-urlencoded'
     }
   };
-  var p = [];
-  p.push(
+  // var p = [];
+  // p.push(
   	request(options, function(err, result, body) {
 	    if (err) {
 	    	console.log('error:', err);
@@ -71,47 +71,6 @@ function getNumberUser() {
         }
         verifUpTo(Led1, tmp, 'total');
         verifDiffOff(Led2, tmp, 'onb');
-        // if (tmp.total > save.total) {
-        //   if (debug) {
-        //     console.log('tmp.total > save.total');
-        //   }
-        //   save.total = tmp.total;
-        //   if (Led1.readSync() === 0) {
-        //     Led1.writeSync(1);
-        //   }
-        // } else {
-        //   if (debug) {
-        //     console.log('tmp.total <= save.total');
-        //   }          
-        //   save.total = tmp.total;
-        //   if (Led1.readSync() === 1) {
-        //     Led1.writeSync(0);
-        //   }
-        // }
-        
-        // if (tmp.onb < save.onb) {
-        //   if (debug) {
-        //     console.log('tmp.onb < save.onb');
-        //   }
-        //   save.onb = tmp.onb;
-        //   if (Led2.readSync() === 0) {
-        //     Led2.writeSync(1);
-        //   }
-        // } else if (tmp.onb > save.onb) {
-        //   if (debug) {
-        //     console.log('tmp.onb > save.onb');
-        //   }
-        //   save.onb = tmp.onb;
-        //   config.flash(Led2, 250, 10000);
-        // } else {
-        //   if (debug) {
-        //     console.log('tmp.onb >= save.onb');
-        //   }
-        //   save.onb = tmp.onb;
-        //   if (Led2.readSync() === 1) {
-        //     Led2.writeSync(0);
-        //   }
-        // }
       }
       else {
         if (debug) {
@@ -123,9 +82,9 @@ function getNumberUser() {
         config.flash(Led2, 100, 1000);
       }
   	})
-	);
+	// );
 
-  Promise.all(p);
+  // Promise.all(p);
 }
 
 
