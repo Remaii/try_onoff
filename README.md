@@ -28,5 +28,5 @@ It's simple project to use `onoff` middleware on Raspberry Pi
 - - Use `pm2 start script.js --name try_onoff --watch`
 - - Get log `pm2 logs try_onoff`
 - - Active Debug mode `pm2 set try_onoff:DEBUG true ; pm2 reload try_onoff`
-- - Launch at startup `sudo pm2 startup ; pm2 save`
+- - Launch at startup `pm2 startup ; pm2 save`
 - - Uninstall `pm2 delete try_onoff`
