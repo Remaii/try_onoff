@@ -1,0 +1,23 @@
+{
+  "name": "try_onoff",
+  "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Remaii/try_onoff.git"
+  },
+  "author": "rthidet",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Remaii/try_onoff/issues"
+  },
+  "homepage": "https://github.com/Remaii/try_onoff#readme",
+  "dependencies": {
+    "onoff": "^1.1.8",
+    "request": "^2.83.0"
+  }
+}
