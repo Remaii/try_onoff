@@ -90,7 +90,7 @@ function getNumberUser() {
 var debug = (process.env.DEBUG === 'true' ? true : false) || false;
 var time = config.duree;
 var counter = config.decompte;
-console.log(time, 'ms', counter, 's, debug:', debug);
+console.log(time, "ms", counter, "s, debug:", debug);
 
 
 var launch = false;
