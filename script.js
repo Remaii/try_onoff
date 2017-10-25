@@ -58,7 +58,6 @@ function getDataAndCompare() {
     if (err) { console.log('Request Error:', err); }
     console.log('Response Body:', body);
     var tmp = JSON.parse(body);
-    config.flash(Led2, 100, 1000);
     if (save.total && save.onb) {
       if (debug) { console.log('save is fully define', save); }
       verifTotal(Led1, tmp, 'total');
@@ -69,7 +68,7 @@ function getDataAndCompare() {
       save.total = tmp.total;
       save.onb = tmp.onb;
       config.flash(Led1, 500, (time / 2));
-      config.flash(Led2, 500, (time / 2));
+      config.flash(Led2, 250, (time / 2));
     }
   });
 }
