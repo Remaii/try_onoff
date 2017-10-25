@@ -12,7 +12,6 @@ var time = config.duree;
 var counter = config.decompte;
 var launch = false;
 var inter = null;
-console.log(time + "ms, " + counter + "s, debug: " + debug);
 
 function verifTotal(led, data, key) {
   if (data[key] > save.total) {
@@ -53,7 +52,7 @@ function verifOnb(led, data, key) {
 }
 
 function getNumberUser() {
-	request(config.options, function(err, result, body) {
+  request(config.options, function(err, result, body) {
     if (err) { console.log('Request Error:', err); }
     console.log('Response Body:', body);
     var tmp = JSON.parse(body);
@@ -70,7 +69,7 @@ function getNumberUser() {
       config.flash(Led1, 100, 1000);
       config.flash(Led2, 100, 1000);
     }
-	});
+  });
 }
 
 function showInter() {
@@ -92,7 +91,7 @@ function showTime() {
 
 if (!launch) {
   launch = true;
-  console.log('launch', launch);
+  console.log('launch:', launch, '=>', time + "ms, " + counter + "s, debug: " + debug);
   getNumberUser();
   if (debug) { console.log('save', save); }
   inter = setInterval(showInter, 1000);
