@@ -38,6 +38,8 @@ var all = {
     	'Content-Type':'x-www-form-urlencoded'
     }
   },
+  pin1: 17,
+  pin2: 27,
 	flash: flash
 }
 
