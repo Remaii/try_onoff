@@ -8,6 +8,44 @@ var Led2 = new gpio(27, 'out');
 
 var save = {};
 
+function verifUpTo(led, data, key) {
+  if (data[key] > save.total) {
+    if (debug) { console.log('tmp.total > save.total'); }
+
+    if (led.readSync() === 0) {
+      led.writeSync(1);
+    }
+  } else {
+    if (debug) { console.log('tmp.total <= save.total'); }
+
+    if (led.readSync() === 1) {
+      led.writeSync(0);
+    }
+  }
+  save.total = data[key];
+}
+
+function verifDiffOff(led, data, key) {
+  if (data[key] < save.onb) {
+    if (debug) { console.log('tmp.onb < save.onb'); }
+
+    if (Led2.readSync() === 0) {
+      Led2.writeSync(1);
+    }
+  } else if (data[key] > save.onb) {
+    if (debug) { console.log('tmp.onb > save.onb'); }
+
+    config.flash(Led2, 250, 10000);
+  } else {
+    if (debug) { console.log('tmp.onb >= save.onb'); }
+
+    if (Led2.readSync() === 1) {
+      Led2.writeSync(0);
+    }
+  }
+  save.onb = data[key];
+}
+
 function getNumberUser() {
 	var options = {
     method: 'GET',
@@ -27,59 +65,62 @@ function getNumberUser() {
 	    
       var tmp = JSON.parse(body);
 
-	    if (save.total) {
+	    if (save.total && save.onb) {
         if (debug) {
           console.log('save.total is define');
         }
-        if (tmp.total > save.total) {
-          if (debug) {
-            console.log('tmp.total > save.total');
-          }
-          save.total = tmp.total;
-          if (Led1.readSync() === 0) {
-            Led1.writeSync(1);
-          }
-        } else {
-          if (debug) {
-            console.log('tmp.total <= save.total');
-          }          
-          save.total = tmp.total;
-          if (Led1.readSync() === 1) {
-            Led1.writeSync(0);
-          }
-        }
-        if (tmp.onb < save.onb) {
-          if (debug) {
-            console.log('tmp.onb < save.onb');
-          }
-          save.onb = tmp.onb;
-          if (Led2.readSync() === 0) {
-            Led2.writeSync(1);
-          }
-        } else if (tmp.onb > save.onb) {
-          if (debug) {
-            console.log('tmp.onb > save.onb');
-          }
-          save.onb = tmp.onb;
-          config.flash(Led2, 250, 10000);
-        } else {
-          if (debug) {
-            console.log('tmp.onb >= save.onb');
-          }
-          save.onb = tmp.onb;
-          if (Led2.readSync() === 1) {
-            Led2.writeSync(0);
-          }
-        }
-
-      } else {
+        verifUpTo(Led1, tmp, 'total');
+        verifDiffOff(Led2, tmp, 'onb');
+        // if (tmp.total > save.total) {
+        //   if (debug) {
+        //     console.log('tmp.total > save.total');
+        //   }
+        //   save.total = tmp.total;
+        //   if (Led1.readSync() === 0) {
+        //     Led1.writeSync(1);
+        //   }
+        // } else {
+        //   if (debug) {
+        //     console.log('tmp.total <= save.total');
+        //   }          
+        //   save.total = tmp.total;
+        //   if (Led1.readSync() === 1) {
+        //     Led1.writeSync(0);
+        //   }
+        // }
+        
+        // if (tmp.onb < save.onb) {
+        //   if (debug) {
+        //     console.log('tmp.onb < save.onb');
+        //   }
+        //   save.onb = tmp.onb;
+        //   if (Led2.readSync() === 0) {
+        //     Led2.writeSync(1);
+        //   }
+        // } else if (tmp.onb > save.onb) {
+        //   if (debug) {
+        //     console.log('tmp.onb > save.onb');
+        //   }
+        //   save.onb = tmp.onb;
+        //   config.flash(Led2, 250, 10000);
+        // } else {
+        //   if (debug) {
+        //     console.log('tmp.onb >= save.onb');
+        //   }
+        //   save.onb = tmp.onb;
+        //   if (Led2.readSync() === 1) {
+        //     Led2.writeSync(0);
+        //   }
+        // }
+      }
+      else {
         if (debug) {
           console.log('save.total is undefined');
         }
         save.total = tmp.total;
         save.onb = tmp.onb;
-        config.flash(Led1, 100, 10000);
-        config.flash(Led2, 100, 10000);
+        config.flash(Led1, 100, 1000);
+        config.flash(Led2, 100, 1000);
       }
   	})
 	);
