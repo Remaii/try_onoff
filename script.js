@@ -15,13 +15,13 @@ var inter = null;
 
 function verifTotal(led, data, key) {
   if (data[key] > save.total) {
-    if (debug) { console.log('data[key] > save.total'); }
+    if (debug) { console.log('data[key] > save.total', data[key], key); }
 
     if (led.readSync() === 0) {
       led.writeSync(1);
     }
   } else {
-    if (debug) { console.log('data[key] <= save.total'); }
+    if (debug) { console.log('data[key] <= save.total', data[key], key); }
 
     if (led.readSync() === 1) {
       led.writeSync(0);
@@ -32,17 +32,17 @@ function verifTotal(led, data, key) {
 
 function verifOnb(led, data, key) {
   if (data[key] < save.onb) {
-    if (debug) { console.log('data[key] < save.onb'); }
+    if (debug) { console.log('data[key] < save.onb', data[key], key); }
 
     if (led.readSync() === 0) {
       led.writeSync(1);
     }
   } else if (data[key] > save.onb) {
-    if (debug) { console.log('data[key] > save.onb'); }
+    if (debug) { console.log('data[key] > save.onb', data[key], key); }
 
     config.flash(led, 250, 10000);
   } else {
-    if (debug) { console.log('data[key] >= save.onb'); }
+    if (debug) { console.log('data[key] >= save.onb', data[key], key); }
 
     if (led.readSync() === 1) {
       led.writeSync(0);
