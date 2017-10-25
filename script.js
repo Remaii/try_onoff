@@ -5,8 +5,8 @@ var config = require('../config');
 var request = require('request');
 var gpio = require('onoff').Gpio;
 // GPIO
-var Led1 = new gpio(17, 'out');
-var Led2 = new gpio(27, 'out');
+var Led1 = new gpio(config.pin1, 'out');
+var Led2 = new gpio(config.pin2, 'out');
 // Global var
 var save = {};
 var debug = (process.env.DEBUG === 'true' ? true : false) || false;
