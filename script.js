@@ -67,8 +67,8 @@ function getDataAndCompare() {
       if (debug) { console.log('firstLaunch save:', save); }
       save.total = tmp.total;
       save.onb = tmp.onb;
-      config.flash(Led1, 500, (time / 2));
-      config.flash(Led2, 250, (time / 2));
+      config.flash(Led1, 500, 60000;
+      config.flash(Led2, 250, 60000;
     }
   });
 }
