@@ -73,7 +73,8 @@ function getNumberUser() {
         }
         save.total = tmp.total;
         save.onb = tmp.onb;
-        config.flash(Led1, 500, 2000);
+        config.flash(Led1, 200, 9900);
+        config.flash(Led2, 100, 9900);
         // if (Led1.readSync() === 0) {
         //   Led1.writeSync(1);
         // }
