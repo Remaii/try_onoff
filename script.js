@@ -1,3 +1,4 @@
+var config = require('../config');
 var request = require('request');
 
 var gpio = require('onoff').Gpio;
@@ -7,10 +8,12 @@ var Led2 = new gpio(27, 'out');
 
 var oldTotal = {};
 
+console.log(config);
+
 function getNumberUser() {
 	var options = {
     method: 'GET',
-    url: 'https://api-dev.cowork.id/v1/users/onlycount',
+    url: config.url,
     rejectUnauthorized: false,
     headers: {
     	'Content-Type':'x-www-form-urlencoded'
@@ -70,8 +73,8 @@ function getNumberUser() {
 }
 
 
-var time = 30000 / 2;
-var counter = 30 / 2;
+var time = 30000;
+var counter = 30;
 var debug = (process.env.DEBUG === 'true' ? true : false) || false;
 var launch = false;
 var inter = null;
@@ -86,7 +89,7 @@ function showInter() {
 function showTime() {
   clearInterval(inter);
   getNumberUser();
-  counter = 30 / 2;
+  counter = 30;
   launch = false;
   inter = setInterval(showInter, 1000);
   setTimeout(showTime, time);
