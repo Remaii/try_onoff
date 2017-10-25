@@ -1,12 +1,18 @@
+// Depend
 var config = require('../config');
 var request = require('request');
-
 var gpio = require('onoff').Gpio;
-
+// GPIO
 var Led1 = new gpio(17, 'out');
 var Led2 = new gpio(27, 'out');
-
+// Global var
 var save = {};
+var debug = (process.env.DEBUG === 'true' ? true : false) || false;
+var time = config.duree;
+var counter = config.decompte;
+var launch = false;
+var inter = null;
+console.log(time + "ms, " + counter + "s, debug: " + debug);
 
 function verifTotal(led, data, key) {
   if (data[key] > save.total) {
@@ -29,18 +35,18 @@ function verifOnb(led, data, key) {
   if (data[key] < save.onb) {
     if (debug) { console.log('tmp.onb < save.onb'); }
 
-    if (Led2.readSync() === 0) {
-      Led2.writeSync(1);
+    if (led.readSync() === 0) {
+      led.writeSync(1);
     }
   } else if (data[key] > save.onb) {
     if (debug) { console.log('tmp.onb > save.onb'); }
 
-    config.flash(Led2, 250, 10000);
+    config.flash(led, 250, 10000);
   } else {
     if (debug) { console.log('tmp.onb >= save.onb'); }
 
-    if (Led2.readSync() === 1) {
-      Led2.writeSync(0);
+    if (led.readSync() === 1) {
+      led.writeSync(0);
     }
   }
   save.onb = data[key];
@@ -67,14 +73,6 @@ function getNumberUser() {
 	});
 }
 
-var debug = (process.env.DEBUG === 'true' ? true : false) || false;
-var time = config.duree;
-var counter = config.decompte;
-console.log(time + "ms, " + counter + "s, debug: " + debug);
-
-var launch = false;
-var inter = null;
-
 function showInter() {
   counter -= 1;
   if (debug) {
@@ -91,13 +89,12 @@ function showTime() {
   setTimeout(showTime, time);
 }
 
+
 if (!launch) {
   launch = true;
   console.log('launch', launch);
   getNumberUser();
-  if (debug) {
-    console.log('save', save);
-  }
+  if (debug) { console.log('save', save); }
   inter = setInterval(showInter, 1000);
   setTimeout(showTime, time);
 }
