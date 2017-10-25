@@ -31,15 +31,15 @@ var all = {
 	duree: duree,
 	decompte: dec,
 	options: {
-    method: 'GET',
-    url: url,
-    rejectUnauthorized: false,
-    headers: {
-    	'Content-Type':'x-www-form-urlencoded'
-    }
-  },
-  pin1: 17,
-  pin2: 27,
+		method: 'GET',
+		url: url,
+		rejectUnauthorized: false,
+		headers: {
+			'Content-Type':'x-www-form-urlencoded'
+		}
+	},
+	pin1: 17,
+	pin2: 27,
 	flash: flash
 }
 
