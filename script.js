@@ -49,7 +49,6 @@ function getNumberUser() {
           }
         }
         if (tmp.onb < save.onb) {
-
           if (debug) {
             console.log('tmp.onb < save.onb');
           }
@@ -57,6 +56,12 @@ function getNumberUser() {
           if (Led2.readSync() === 0) {
             Led2.writeSync(1);
           }
+        } else if (tmp.onb > save.onb) {
+          if (debug) {
+            console.log('tmp.onb > save.onb');
+          }
+          save.onb = tmp.onb;
+          config.flash(Led2, 250, 10000);
         } else {
           if (debug) {
             console.log('tmp.onb >= save.onb');
