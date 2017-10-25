@@ -42,7 +42,7 @@ function verifOnb(led, data, key) {
   } else if (data[key] > save.onb) {
     if (debug) { console.log('data[key] > save.onb', data[key], key); }
 
-    config.flash(led, 250, 10000);
+    config.flash(led, 250, (time / 2));
   } else {
     if (debug) { console.log('data[key] >= save.onb', data[key], key); }
 
