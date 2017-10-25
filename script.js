@@ -6,7 +6,7 @@ var gpio = require('onoff').Gpio;
 var Led1 = new gpio(17, 'out');
 var Led2 = new gpio(27, 'out');
 
-var oldTotal = {};
+var save = {};
 
 function getNumberUser() {
 	var options = {
@@ -23,40 +23,55 @@ function getNumberUser() {
 	    if (err) {
 	    	console.log('error:', err);
 	    }
-	    console.log('Number of User response:', body);
-	    var tmp = JSON.parse(body);
-	    if (oldTotal.total) {
+	    console.log('Body:', body);
+	    
+      var tmp = JSON.parse(body);
+
+	    if (save.total) {
+        
         if (debug) {
-          console.log('oldTotal.total is define');
+          console.log('save.total is define');
         }
-        if (tmp.total > oldTotal.total) {
+
+        if (tmp.total > save.total) {
+
           if (debug) {
-            console.log('tmp.total > oldTotal.total');
+            console.log('tmp.total > save.total');
           }
+          
+          save.total = tmp.total;
+          
           if (Led1.readSync() === 0) {
             Led1.writeSync(1);
           }
           if (Led2.readSync() === 0) {
             Led2.writeSync(1);
           }
-          oldTotal.total = tmp.total;
+
         } else {
+
           if (debug) {
-            console.log('tmp.total <======== oldTotal.total');
+            console.log('tmp.total <= save.total');
           }
+          
+          save.total = tmp.total;
+
           if (Led1.readSync() === 1) {
             Led1.writeSync(0);
           }
           if (Led2.readSync() === 1) {
             Led2.writeSync(0);
           }
+        }
 
-        }
       } else {
+        
         if (debug) {
-          console.log('oldTotal.total is undefined');
+          console.log('save.total is undefined');
         }
-        oldTotal.total = tmp.total;
+        
+        save.total = tmp.total;
+        
         if (Led1.readSync() === 0) {
           Led1.writeSync(1);
         }
@@ -98,7 +113,7 @@ if (!launch) {
   console.log('launch', launch);
   getNumberUser();
   if (debug) {
-    console.log('oldTotal', oldTotal);
+    console.log('save', save);
   }
   inter = setInterval(showInter, 1000);
   setTimeout(showTime, time);
