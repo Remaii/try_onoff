@@ -80,12 +80,6 @@ function getNumberUser() {
         save.onb = tmp.onb;
         config.flash(Led1, 100, 10000);
         config.flash(Led2, 100, 10000);
-        // if (Led1.readSync() === 0) {
-        //   Led1.writeSync(1);
-        // }
-        // if (Led2.readSync() === 0) {
-        //   Led2.writeSync(1);
-        // }
       }
   	})
 	);
