@@ -8,8 +8,6 @@ var Led2 = new gpio(27, 'out');
 
 var oldTotal = {};
 
-console.log(config);
-
 function getNumberUser() {
 	var options = {
     method: 'GET',
@@ -74,7 +72,7 @@ function getNumberUser() {
 
 
 var time = 30000;
-var counter = 30;
+var counter = config.decompte;
 var debug = (process.env.DEBUG === 'true' ? true : false) || false;
 var launch = false;
 var inter = null;
@@ -89,7 +87,7 @@ function showInter() {
 function showTime() {
   clearInterval(inter);
   getNumberUser();
-  counter = 30;
+  counter = config.decompte;
   launch = false;
   inter = setInterval(showInter, 1000);
   setTimeout(showTime, time);
