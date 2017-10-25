@@ -87,13 +87,15 @@ function getNumberUser() {
 }
 
 
+var debug = (process.env.DEBUG === 'true' ? true : false) || false;
 var time = config.duree;
 var counter = config.decompte;
-var debug = (process.env.DEBUG === 'true' ? true : false) || false;
+console.log(time, 'ms', counter, 's, debug:', debug);
+
+
 var launch = false;
 var inter = null;
 
-console.log(time, counter);
 
 function showInter() {
   counter -= 1;
