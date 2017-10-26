@@ -15,6 +15,33 @@ var counter = config.decompte;
 var launch = false;
 var inter = null;
 
+function deterDiff(data, key) {
+  if (data[key] > save[key]) {
+    return data[key] - save[key];
+  } else if (data[key] < save[key]) {
+    return save[key] - data[key];
+  } else {
+    return 0;
+  }
+}
+
+function setLed(led, data, key) {
+  var diff = deterDiff(data, key)
+  if ('onb' === key) {
+    if (diff > 0) {
+      config.flash(led, 100, 10000);
+    } else if (diff < 0) {
+      
+    } else {
+      led.writeSync(0)
+    }
+  } else if ('total' === key) {
+
+  } else {
+    led.writeSync(0);
+  }
+}
+
 function verifTotal(led, data, key) {
   if (data[key] > save.total) {
     if (debug) { console.log('data[key] > save.total', data[key], key); }
@@ -57,7 +84,9 @@ function getDataAndCompare() {
   request(config.options, function(err, result, body) {
     if (err) { console.log('Request Error:', err); }
     console.log('Response Body:', body);
+    
     var tmp = JSON.parse(body);
+    
     if (save.total && save.onb) {
       if (debug) { console.log('save is fully define', save); }
       verifTotal(Led1, tmp, 'total');
@@ -65,9 +94,8 @@ function getDataAndCompare() {
     }
     else {
       if (debug) { console.log('firstLaunch save:', save); }
-      save.total = tmp.total;
-      save.onb = tmp.onb;
-
+      
+      save = tmp;
       config.flash(Led1, 500, (time / 2));
       config.flash(Led2, 250, (time / 2));
     }
