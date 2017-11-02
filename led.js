@@ -48,6 +48,7 @@ var pingpong = function(led, timeval, time) {
 			// if (index != 0) {
 				if (elem.readSync() === 0) {
 					elem.writeSync(1);
+					prev[elem.gpio] = {};
 					prev[elem.gpio].state = 1;
 					prev[elem.gpio].path = elem.gpioPath;
 				} else {
