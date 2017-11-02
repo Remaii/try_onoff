@@ -74,12 +74,12 @@ function setLed(data, key) {
   }
 }
 
-function checkDifference(leds, data) {
-  var mandatory = ["total", "onb", "grp"];
+function checkDifference(data) {
+  var mandatory = config.scope;
 
   for (var i = 0; i < mandatory.length; i++) {
     setLed(leds, mandatory[i])
-    // save[mandatory[i]] = data[mandatory[i]];
+    save[mandatory[i]] = data[mandatory[i]];
   }
 }
 
@@ -143,13 +143,13 @@ function getDataAndCompare() {
       if (debug) { console.log('save is fully define', save); }
       
       checkDifference(leds, tmp);
-      save = tmp;
+      // save = tmp;
     }
     else {
       if (debug) { console.log('firstLaunch save:', save); }
       
       checkDifference(leds, tmp);
-      save = tmp;
+      // save = tmp;
     }
   });
 }
