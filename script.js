@@ -14,8 +14,9 @@ var Led2 = new gpio(config.pin2, 'out');
 // Begin of Test without Raspberry Pi
 // var Led1 = show.fakeLed("GPIO 17");
 // var Led2 = show.fakeLed("GPIO 27");
-var leds = [Led1, Led2];
 // End of Test without Raspberry Pi
+
+var leds = [Led1, Led2];
 
 // Global var
 var save = {};
@@ -38,7 +39,7 @@ function deterDiff(data, key) {
 function setLed(data, key) {
   var diff = deterDiff(data, key)
   if ('onb' === key) {
-    console.log('onb');
+    console.log('onb', diff);
     if (diff > 0) {
       show.flash(leds, 100, 10000);
     } else if (diff < 0) {
@@ -48,7 +49,7 @@ function setLed(data, key) {
     }
     save[key] = data[key];
   } else if ('total' === key) {
-    console.log('total');
+    console.log('total', diff);
     if (diff > 0) {
       show.flash(leds, 100, 10000);
     } else if (diff < 0) {
@@ -58,7 +59,7 @@ function setLed(data, key) {
     }
     save[key] = data[key];
   } else if ('grp' === key) {
-    console.log('grp');
+    console.log('grp', diff);
     if (diff > 0) {
       show.pingpong(leds, 200, 10000);
     } else if (diff < 0) {
@@ -68,7 +69,7 @@ function setLed(data, key) {
     }
     save[key] = data[key];
   } else {
-    console.log('else');
+    console.log('else', diff);
     show.powerOff(leds);
   }
 }
