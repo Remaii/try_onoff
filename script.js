@@ -5,15 +5,15 @@ var config = require('../config');
 var show = require('./led');
 var request = require('request');
 
-// var gpio = require('onoff').Gpio;
+var gpio = require('onoff').Gpio;
 
 // // GPIO
-// var Led1 = new gpio(config.pin1, 'out');
-// var Led2 = new gpio(config.pin2, 'out');
+var Led1 = new gpio(config.pin1, 'out');
+var Led2 = new gpio(config.pin2, 'out');
 
 // Begin of Test without Raspberry Pi
-var Led1 = show.fakeLed("GPIO 17");
-var Led2 = show.fakeLed("GPIO 27");
+// var Led1 = show.fakeLed("GPIO 17");
+// var Led2 = show.fakeLed("GPIO 27");
 var leds = [Led1, Led2];
 // End of Test without Raspberry Pi
 
