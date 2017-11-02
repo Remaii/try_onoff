@@ -38,6 +38,7 @@ function deterDiff(data, key) {
 function setLed(data, key) {
   var diff = deterDiff(data, key)
   if ('onb' === key) {
+    console.log('onb');
     if (diff > 0) {
       show.flash(leds, 100, 10000);
     } else if (diff < 0) {
@@ -47,6 +48,7 @@ function setLed(data, key) {
     }
     save[key] = data[key];
   } else if ('total' === key) {
+    console.log('total');
     if (diff > 0) {
       show.flash(leds, 100, 10000);
     } else if (diff < 0) {
@@ -56,6 +58,7 @@ function setLed(data, key) {
     }
     save[key] = data[key];
   } else if ('grp' === key) {
+    console.log('grp');
     if (diff > 0) {
       show.pingpong(leds, 200, 10000);
     } else if (diff < 0) {
@@ -65,6 +68,7 @@ function setLed(data, key) {
     }
     save[key] = data[key];
   } else {
+    console.log('else');
     show.powerOff(leds);
   }
 }
@@ -122,7 +126,7 @@ function getDataAndCompare() {
 
     if (err) { 
       if (debug) {
-        // console.log('Request Error:', err);
+        console.log('Request Error:', err);
       }
     }
     

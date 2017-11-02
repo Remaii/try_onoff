@@ -145,18 +145,19 @@ var writeSync = function(value) {
 	return this.state = value;
 };
 var fakeRequest = function() {
-	var total = randTotal;
-	var onb = randOnb;
 	var grp = 5;
+
+	
+	var json = {
+		total: randTotal,
+		onb: randOnb,
+		grp: grp,
+	}
 
 	randTotal += 1;
 	// randOnb += 1;
-	
-	var json = {
-		total:total,
-		onb:onb,
-		grp:grp,
-	}
+
+	console.log('fakeRequest :', json);
 	return JSON.stringify(json);
 };
 var fakeLed = function(name) {
