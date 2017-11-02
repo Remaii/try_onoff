@@ -48,19 +48,21 @@ var pingpong = function(led, timeval, time) {
 			if (index != 0) {
 				if (elem.readSync() === 0) {
 					elem.writeSync(1);
-					prev = 1;
+					prev[elem.gpio].state = 1;
+					prev[elem.gpio].path = elem.gpioPath;
 				} else {
 					elem.writeSync(0);
-					prev = 0;
+					prev[elem.gpio].state = 0;
+					prev[elem.gpio].path = elem.gpioPath;
 				}
 			} else {
 				if (elem.readSync() === 0) {
-					elem.writeSync((prev.state === 1 ? 0 : 1));
+					elem.writeSync((prev[elem.gpio].state === 1 ? 0 : 1));
 				} else {
-					elem.writeSync((prev.state === 1 ? 0 : 1));
+					elem.writeSync((prev[elem.gpio].state === 1 ? 0 : 1));
 				}
 			}
-			console.log(elem, '<=>', prev);
+			console.log(elem.gpio, '<=>', prev[elem.gpio]);
 			// prev = elem;
 		});
 	};
