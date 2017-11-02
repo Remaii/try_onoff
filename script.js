@@ -19,12 +19,16 @@ var Led2 = new gpio(config.pin2, 'out');
 var leds = [Led1, Led2];
 
 // Global var
-var save = {};
 var debug = (process.env.DEBUG === 'true' ? true : false) || false;
 var time = config.duree;
 var counter = config.decompte;
 var launch = false;
 var inter = null;
+var save = {
+  total: 0,
+  onb: 0,
+  grp: 0
+};
 
 function deterDiff(data, key) {
   console.log(save, data, key);
