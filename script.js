@@ -84,7 +84,7 @@ function checkDifference(data) {
   var mandatory = config.scope;
 
   for (var i = 0; i < mandatory.length; i++) {
-    setTimeout(() => { setLed(data, mandatory[i]); }, 10000 * (i + 1));
+    setInterval(() => { setLed(data, mandatory[i]); }, 10000 * (i + 1));
     save[mandatory[i]] = data[mandatory[i]];
   }
 }
