@@ -45,26 +45,18 @@ var pingpong = function(led, timeval, time) {
 
 	function showInter() {
 		led.forEach(function(elem , index) {			
-			// if (index != 0) {
-				if (elem.readSync() === 0) {
-					elem.writeSync(1);
-					prev[elem.gpio] = {};
-					prev[elem.gpio].state = 1;
-					prev[elem.gpio].path = elem.gpioPath;
-				} else {
-					elem.writeSync(0);
-					prev[elem.gpio].state = 0;
-					prev[elem.gpio].path = elem.gpioPath;
-				}
-			// } else {
-			// 	if (elem.readSync() === 0) {
-			// 		elem.writeSync((prev[elem.gpio].state === 1 ? 0 : 1));
-			// 	} else {
-			// 		elem.writeSync((prev[elem.gpio].state === 1 ? 0 : 1));
-			// 	}
-			// }
+			if (elem.readSync() === 0) {
+				elem.writeSync((prev[elem.gpio].state === 1 ? 0 : 1));
+				prev[elem.gpio] = {};
+				prev[elem.gpio].state = 1;
+				prev[elem.gpio].path = elem.gpioPath;
+			} else {
+				elem.writeSync((prev[elem.gpio].state === 1 ? 0 : 1));
+				prev[elem.gpio].state = 0;
+				prev[elem.gpio].path = elem.gpioPath;
+			}
+			
 			console.log(elem.gpio, '<=>', prev[elem.gpio]);
-			// prev = elem;
 		});
 	};
 
