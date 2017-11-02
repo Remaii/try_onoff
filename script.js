@@ -79,7 +79,7 @@ function checkDifference(data) {
 
   console.log('1',data);
   for (var i = 0; i < mandatory.length; i++) {
-    setLed(leds, mandatory[i]);
+    setLed(data, mandatory[i]);
     console.log('2', save, save[mandatory[i]], data[mandatory[i]], mandatory[i]);
     save[mandatory[i]] = data[mandatory[i]];
     console.log('3', save);
