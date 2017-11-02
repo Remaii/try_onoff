@@ -58,7 +58,7 @@ var pingpong = function(led, timeval, time) {
 					elem.writeSync((prev.state === 1 ? 0 : 1));
 				}
 			}
-			console.log(elem.name, elem.state, '<=>', prev.name, prev.state);
+			console.log(elem, '<=>', prev);
 			prev = elem;
 		});
 	};
