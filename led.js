@@ -41,15 +41,17 @@ var pingpong = function(led, timeval, time) {
 	var inter = null;
 	var interval = (timeval >= 100 ? timeval : 100);
 	var duration = (time <= config.duree ? time : config.duree);
-	var prev = {};
+	var prev = 0;
 
 	function showInter() {
 		led.forEach(function(elem , index) {			
 			if (index != 0) {
 				if (elem.readSync() === 0) {
 					elem.writeSync(1);
+					prev = 1;
 				} else {
 					elem.writeSync(0);
+					prev = 0;
 				}
 			} else {
 				if (elem.readSync() === 0) {
@@ -59,7 +61,7 @@ var pingpong = function(led, timeval, time) {
 				}
 			}
 			console.log(elem, '<=>', prev);
-			prev = elem;
+			// prev = elem;
 		});
 	};
 
