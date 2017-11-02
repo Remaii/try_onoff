@@ -118,6 +118,8 @@ function checkDifference(leds, data) {
 
 function getDataAndCompare() {
   request(config.options, function(err, result, body) {
+    var tmp = {};
+
     if (err) { 
       if (debug) {
         // console.log('Request Error:', err);
@@ -126,21 +128,23 @@ function getDataAndCompare() {
     
     if (body) {
       console.log('Response Body:', body);
-      var tmp = JSON.parse(body);
+      tmp = JSON.parse(body);
     } else {
-      var tmp = JSON.parse(show.fakeRequest());
+      tmp = JSON.parse(show.fakeRequest());
       console.log('fakeRequest send :', tmp);
     }
     console.log(save, save.total);
     if (save.total && save.onb) {
       if (debug) { console.log('save is fully define', save); }
+      
       checkDifference(leds, tmp);
+      save = tmp;
     }
     else {
-      save = tmp;
-      
       if (debug) { console.log('firstLaunch save:', save); }
+      
       checkDifference(leds, tmp);
+      save = tmp;
     }
   });
 }
