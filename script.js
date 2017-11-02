@@ -47,7 +47,7 @@ function setLed(data, key) {
   if ('onb' === key) {
     console.log('onb', diff);
     if (diff > 0) {
-      show.flash(leds, 100, 10000);
+      show.flash(leds[0], 100, 10000);
     } else if (diff < 0) {
       show.solder(leds, 10000);
     } else {
@@ -57,7 +57,7 @@ function setLed(data, key) {
   } else if ('total' === key) {
     console.log('total', diff);
     if (diff > 0) {
-      show.flash(leds, 100, 10000);
+      show.flash(leds[0], 100, 10000);
     } else if (diff < 0) {
       show.pingpong(leds, 100, 10000);
     } else {
@@ -83,12 +83,9 @@ function setLed(data, key) {
 function checkDifference(data) {
   var mandatory = config.scope;
 
-  console.log('1',data);
   for (var i = 0; i < mandatory.length; i++) {
     setLed(data, mandatory[i]);
-    console.log('2', save, save[mandatory[i]], data[mandatory[i]], mandatory[i]);
     save[mandatory[i]] = data[mandatory[i]];
-    console.log('3', save);
   }
 }
 
