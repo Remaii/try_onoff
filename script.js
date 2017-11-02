@@ -144,13 +144,13 @@ function getDataAndCompare() {
     if (save.total && save.onb) {
       if (debug) { console.log('save is fully define', save); }
       
-      checkDifference(leds, tmp);
+      checkDifference(tmp);
       // save = tmp;
     }
     else {
       if (debug) { console.log('firstLaunch save:', save); }
       
-      checkDifference(leds, tmp);
+      checkDifference(tmp);
       // save = tmp;
     }
   });
