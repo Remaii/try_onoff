@@ -78,7 +78,8 @@ function checkDifference(data) {
   var mandatory = config.scope;
 
   for (var i = 0; i < mandatory.length; i++) {
-    setLed(leds, mandatory[i])
+    setLed(leds, mandatory[i]);
+    console.log(save, save[mandatory[i]], data[mandatory[i]], mandatory[i]);
     save[mandatory[i]] = data[mandatory[i]];
   }
 }
