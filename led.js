@@ -41,7 +41,7 @@ var pingpong = function(led, timeval, time) {
 	var inter = null;
 	var interval = (timeval >= 100 ? timeval : 100);
 	var duration = (time <= config.duree ? time : config.duree);
-	var prev = 0;
+	var prev = {};
 
 	function showInter() {
 		led.forEach(function(elem , index) {			
