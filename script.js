@@ -77,6 +77,7 @@ function setLed(data, key) {
 function checkDifference(data) {
   var mandatory = config.scope;
 
+  console.log(data);
   for (var i = 0; i < mandatory.length; i++) {
     setLed(leds, mandatory[i]);
     console.log(save, save[mandatory[i]], data[mandatory[i]], mandatory[i]);
