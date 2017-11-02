@@ -27,6 +27,7 @@ var launch = false;
 var inter = null;
 
 function deterDiff(data, key) {
+  console.log(save, data, key);
   if (data[key] > save[key]) {
     return data[key] - save[key];
   } else if (data[key] < save[key]) {
@@ -37,7 +38,8 @@ function deterDiff(data, key) {
 }
 
 function setLed(data, key) {
-  var diff = deterDiff(data, key)
+  var diff = deterDiff(data, key);
+
   if ('onb' === key) {
     console.log('onb', diff);
     if (diff > 0) {
