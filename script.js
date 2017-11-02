@@ -1,7 +1,7 @@
 'use strict'
 
 // Depend
-var config = require('../config');
+var config = require('../config1');
 var show = require('./led');
 var request = require('request');
 

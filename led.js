@@ -1,6 +1,6 @@
 'use strict'
 
-var config = require('../config');
+var config = require('../config1');
 
 var flash = function(led, timeval, time) {
 	console.log('Flash, intervals: ' + timeval + 'ms, duration: ' + time + 'ms.');
