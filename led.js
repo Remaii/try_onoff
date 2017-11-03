@@ -47,11 +47,11 @@ var pingpong = function(led, timeval, time) {
 		led.forEach(function(elem , index) {			
 			prev[elem.gpio] = prev[elem.gpio] || {};
 			if (elem.readSync() === 0) {
-				elem.writeSync((prev[elem.gpio].state === 1 ? 1 : 0));
+				elem.writeSync(1);
 				prev[elem.gpio].state = 1;
 				prev[elem.gpio].path = elem.gpioPath;
 			} else {
-				elem.writeSync((prev[elem.gpio].state === 1 ? 0 : 1));
+				elem.writeSync(0);
 				prev[elem.gpio].state = 0;
 				prev[elem.gpio].path = elem.gpioPath;
 			}
