@@ -52,14 +52,6 @@ var pingpong = function(led, timeval, time) {
 				led[i + 1].writeSync(1);
 			}
 		}
-		// led.forEach(function(elem) {
-			// if (elem.readSync() === 0) {
-			// 	elem.writeSync(1);
-			// } else {
-			// 	elem.writeSync(0);
-			// }
-		// 	console.log(elem.gpio, '<=>', prev[elem.gpio]);
-		// });
 	};
 
 	function showTime() {

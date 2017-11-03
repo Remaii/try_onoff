@@ -43,42 +43,43 @@ function deterDiff(data, key) {
 
 function setLed(data, key) {
   var diff = deterDiff(data, key);
+  var p = [];
 
-  // if ('onb' === key) {
-  //   console.log('onb', diff);
-  //   if (diff > 0) {
-  //     show.flash(leds[0], 100, 10000);
-  //   } else if (diff < 0) {
-  //     show.solder(leds, 10000);
-  //   } else {
-  //     show.powerOff(leds[0]);
-  //   }
-  //   save[key] = data[key];
-  // } else if ('total' === key) {
-  //   console.log('total', diff);
-  //   if (diff > 0) {
-  //     show.flash(leds[0], 100, 10000);
-  //   } else if (diff < 0) {
-  //     show.pingpong(leds, 100, 10000);
-  //   } else {
-  //     show.powerOff(leds[1]);
-  //   }
-  //   save[key] = data[key];
-  // } else
-  if ('grp' === key) {
+  if ('onb' === key) {
+    console.log('onb', diff);
+    if (diff > 0) {
+      p.push(show.flash(leds[0], 100, 10000));
+    } else if (diff < 0) {
+      p.push(show.solder(leds, 10000));
+    } else {
+      p.push(show.powerOff(leds[0]));
+    }
+    save[key] = data[key];
+  } else if ('total' === key) {
+    console.log('total', diff);
+    if (diff > 0) {
+      p.push(show.flash(leds[0], 100, 10000));
+    } else if (diff < 0) {
+      p.push(show.pingpong(leds, 100, 10000));
+    } else {
+      p.push(show.powerOff(leds[1]));
+    }
+    save[key] = data[key];
+  } else if ('grp' === key) {
     console.log('grp', diff);
     if (diff > 0) {
-      show.pingpong(leds, 200, 10000);
+      p.push(show.pingpong(leds, 200, 10000));
     } else if (diff < 0) {
-      show.fix(led[1], 100, 10000);
+      p.push(show.fix(led[1], 100, 10000));
     } else {
-      show.powerOff(leds[1]);
+      p.push(show.powerOff(leds[1]));
     }
     save[key] = data[key];
   } else {
     console.log('else', diff);
-    show.powerOff(leds);
+    p.push(show.powerOff(leds));
   }
+  return Promise.all(p);
 }
 
 function checkDifference(data) {
