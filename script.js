@@ -57,6 +57,7 @@ function setLed(data, key) {
     save[key] = data[key];
   } else if ('total' === key) {
     console.log('total', diff);
+    
     if (diff > 0) {
       p.push(show.flash(leds[0], 100, 10000));
     } else if (diff < 0) {
