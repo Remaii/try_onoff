@@ -45,9 +45,9 @@ var pingpong = function(led, timeval, time) {
 
 	function showInter() {
 		led.forEach(function(elem , index) {			
+			prev[elem.gpio] = prev[elem.gpio] || {};
 			if (elem.readSync() === 0) {
 				elem.writeSync((prev[elem.gpio].state === 1 ? 0 : 1));
-				prev[elem.gpio] = {};
 				prev[elem.gpio].state = 1;
 				prev[elem.gpio].path = elem.gpioPath;
 			} else {
