@@ -44,27 +44,28 @@ function deterDiff(data, key) {
 function setLed(data, key) {
   var diff = deterDiff(data, key);
 
-  if ('onb' === key) {
-    console.log('onb', diff);
-    if (diff > 0) {
-      show.flash(leds[0], 100, 10000);
-    } else if (diff < 0) {
-      show.solder(leds, 10000);
-    } else {
-      show.powerOff(leds[0]);
-    }
-    save[key] = data[key];
-  } else if ('total' === key) {
-    console.log('total', diff);
-    if (diff > 0) {
-      show.flash(leds[0], 100, 10000);
-    } else if (diff < 0) {
-      show.pingpong(leds, 100, 10000);
-    } else {
-      show.powerOff(leds[1]);
-    }
-    save[key] = data[key];
-  } else if ('grp' === key) {
+  // if ('onb' === key) {
+  //   console.log('onb', diff);
+  //   if (diff > 0) {
+  //     show.flash(leds[0], 100, 10000);
+  //   } else if (diff < 0) {
+  //     show.solder(leds, 10000);
+  //   } else {
+  //     show.powerOff(leds[0]);
+  //   }
+  //   save[key] = data[key];
+  // } else if ('total' === key) {
+  //   console.log('total', diff);
+  //   if (diff > 0) {
+  //     show.flash(leds[0], 100, 10000);
+  //   } else if (diff < 0) {
+  //     show.pingpong(leds, 100, 10000);
+  //   } else {
+  //     show.powerOff(leds[1]);
+  //   }
+  //   save[key] = data[key];
+  // } else
+  if ('grp' === key) {
     console.log('grp', diff);
     if (diff > 0) {
       show.pingpong(leds, 200, 10000);
