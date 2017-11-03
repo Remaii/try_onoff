@@ -41,23 +41,25 @@ var pingpong = function(led, timeval, time) {
 	var inter = null;
 	var interval = (timeval >= 100 ? timeval : 100);
 	var duration = (time <= config.duree ? time : config.duree);
-	var prev = {};
 
 	function showInter() {
-		led.forEach(function(elem , index) {			
-			prev[elem.gpio] = prev[elem.gpio] || {};
-			if (elem.readSync() === 0) {
-				elem.writeSync(1);
-				prev[elem.gpio].state = 1;
-				prev[elem.gpio].path = elem.gpioPath;
+		for (var i = 0; i < led.length - 1; i++) {
+			if (led[i].readSync() === 0) {
+				led[i].writeSync(1);
+				led[i + 1].writeSync(0);
 			} else {
-				elem.writeSync(0);
-				prev[elem.gpio].state = 0;
-				prev[elem.gpio].path = elem.gpioPath;
+				led[i].writeSync(0);
+				led[i + 1].writeSync(1);
 			}
-			
-			console.log(elem.gpio, '<=>', prev[elem.gpio]);
-		});
+		}
+		// led.forEach(function(elem) {
+			// if (elem.readSync() === 0) {
+			// 	elem.writeSync(1);
+			// } else {
+			// 	elem.writeSync(0);
+			// }
+		// 	console.log(elem.gpio, '<=>', prev[elem.gpio]);
+		// });
 	};
 
 	function showTime() {
