@@ -27,6 +27,7 @@ function setStatus() {
 	_.each(status, function(elem) {
 		_.each(leds, function(led) {
 			if (led.gpio === elem.number) {
+				console.log('setStatus of:', elem.name, 'gpio#:', elem.number, 'state:', elem.state);
 				led.writeSync(elem.state);
 			}
 		});
@@ -43,8 +44,8 @@ function getStatus(time) {
     }
     
     if (body) {
-      console.log('Response Body:', body);
       status = JSON.parse(body);
+      console.log('Response Body:', status);
     }
     return setStatus();
   });
