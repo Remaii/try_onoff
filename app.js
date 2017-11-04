@@ -24,10 +24,11 @@ function determineLeds() {
 function setStatus() {
 	if (debug) { console.log('status', status); }
 	_.each(status, function(elem) {
-		console.log(elem);
-		if (config.pins.indexOf(elem.number) >= 0) {
-			console.log('find it!', elem.number);
-		}
+		_.each(leds, function(led) {
+			if (led.gpio === elem.number) {
+				console.log('find it', led, elem);
+			}
+		})
 	});
 }
 
