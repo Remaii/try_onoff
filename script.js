@@ -78,7 +78,7 @@ function setLed(data, key, cb) {
       show.powerOff(leds[1]);
     }
   } else {
-    if (debug) {c onsole.log('else', diff); }
+    if (debug) { console.log('else', diff); }
     show.powerOff(leds);
   }
 }
