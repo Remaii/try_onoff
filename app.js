@@ -20,11 +20,11 @@ function determineLeds() {
 	return tmp;
 }
 
-if (Array.isEmpty(leds)) {
+if (leds.length <= 0) {
 	console.log('post deter');
 	leds = determineLeds();
 }
 
-if (!launch && !Array.isEmpty(leds)) {
+if (!launch && leds.length > 0) {
 	console.log(leds);
 }
