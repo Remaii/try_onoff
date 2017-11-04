@@ -80,8 +80,7 @@ function setLed(data, key, cb) {
     console.log('else', diff);
     p.push(show.powerOff(leds));
   }
-  return Promise.all(p)
-    .then(() => { return cb(); });
+  return async.series(p, cb);
 }
 
 function checkDifference(data) {
@@ -90,15 +89,16 @@ function checkDifference(data) {
     p = [];
 
   function cb() {
+    i++;
     return save[mandatory[i]] = data[mandatory[i]];
   };
 
   while (i < mandatory.length) {
+    console.log('while', i, mandatory[i]);
     setLed(data, mandatory[i], cb);
     // save[mandatory[i]] = data[mandatory[i]];
-    i++;
+    // i++;
   }
-  return async.series(p, (err) => { console.log('error:', err); });
 }
 
 function getDataAndCompare() {
