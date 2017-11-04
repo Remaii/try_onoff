@@ -17,7 +17,7 @@ function determineLeds() {
 	_.each(config.pins, function(value) {
 		tmp.push(()=>{ return new gpio(value, 'out'); });
 	});
-	console.log(tmp);
+	console.log('tmp', tmp);
 	return tmp;
 }
 
@@ -27,5 +27,5 @@ if (leds.length <= 0) {
 }
 
 if (!launch && leds.length > 0) {
-	console.log(leds);
+	console.log('leds', leds);
 }
