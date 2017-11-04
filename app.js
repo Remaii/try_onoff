@@ -52,6 +52,7 @@ function getStatus(time) {
 }
 
 function showTime() {
+	console.log('showTime');
 	getStatus();
   launch = true;
   setTimeout(showTime, 100000);
@@ -62,5 +63,5 @@ if (leds.length <= 0) {
 }
 
 if (!launch && leds.length > 0) {
-	showTime();
+  setTimeout(showTime, 100000);
 }
