@@ -10,13 +10,15 @@ var gpio = require('onoff').Gpio;
 // // GPIO
 var Led1 = new gpio(config.pin1, 'out');
 var Led2 = new gpio(config.pin2, 'out');
+var Led3 = new gpio(config.pin3, 'out');
+var Led4 = new gpio(config.pin4, 'out');
 
 // Begin of Test without Raspberry Pi
 // var Led1 = show.fakeLed("GPIO 17");
 // var Led2 = show.fakeLed("GPIO 27");
 // End of Test without Raspberry Pi
 
-var leds = [Led1, Led2];
+var leds = [Led1, Led2, Led3, Led4];
 
 // Global var
 var debug = (process.env.DEBUG === 'true' ? true : false) || false;
