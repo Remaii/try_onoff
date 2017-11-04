@@ -22,13 +22,14 @@ function determineLeds() {
 }
 
 function setStatus() {
-	if (debug) { console.log('status', status); }
+	if (debug) { console.log('setStatus:', status); }
+
 	_.each(status, function(elem) {
 		_.each(leds, function(led) {
 			if (led.gpio === elem.number) {
-				console.log('find it', led, elem);
+				led.writeSync(elem.state);
 			}
-		})
+		});
 	});
 }
 
@@ -49,10 +50,16 @@ function getStatus(time) {
   });
 }
 
+function showTime() {
+	getStatus();
+  launch = true;
+  setTimeout(showTime, 100000);
+}
+
 if (leds.length <= 0) {
 	leds = determineLeds();
 }
 
 if (!launch && leds.length > 0) {
-	getStatus();
+	showTime();
 }

@@ -146,6 +146,7 @@ if (!launch) {
   getDataAndCompare();
 
   if (debug) { console.log('save', save); }
-  inter = setInterval(showInter, 1000);
-  setTimeout(showTime, time);
+  showTime();
+  // inter = setInterval(showInter, 1000);
+  // setTimeout(showTime, time);
 }
