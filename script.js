@@ -96,6 +96,8 @@ function checkDifference(data) {
       console.log('func', data, mandatory[i]);
       setLed(data, mandatory[i]);
     });
+    console.log(p);
+    async.series(p,(err)=>{console.log(err);})
     save[mandatory[i]] = data[mandatory[i]];
   }
 }
