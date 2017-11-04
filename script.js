@@ -41,7 +41,7 @@ function deterDiff(data, key) {
   }
 }
 
-function setLed(data, key) {
+function setLed(data, key, cb) {
   var diff = deterDiff(data, key);
   var p = [];
 
@@ -80,7 +80,8 @@ function setLed(data, key) {
     console.log('else', diff);
     p.push(show.powerOff(leds));
   }
-  return Promise.all(p);
+  return Promise.all(p)
+    .then(() => { return cb(); });
 }
 
 function checkDifference(data) {
@@ -93,7 +94,7 @@ function checkDifference(data) {
   };
 
   while (i < mandatory.length) {
-    p.push((cb) => { setLed(data, mandatory[i]); });//setLed(data, mandatory[i]));
+    setLed(data, mandatory[i], cb);
     // save[mandatory[i]] = data[mandatory[i]];
     i++;
   }
