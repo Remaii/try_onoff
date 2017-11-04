@@ -90,10 +90,10 @@ function checkDifference(data) {
 
   function cb() {
     return save[mandatory[i]] = data[mandatory[i]];
-  }
+  };
 
-  for (i < mandatory.length) {
-    p.push((cb) => {setLed(data,madatory[i])});//setLed(data, mandatory[i]));
+  while (i < mandatory.length) {
+    p.push((cb) => { setLed(data, madatory[i]); });//setLed(data, mandatory[i]));
     // save[mandatory[i]] = data[mandatory[i]];
     i++;
   }
