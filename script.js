@@ -84,26 +84,19 @@ function setLed(data, key, cb) {
     console.log('else', diff);
     p.push(show.powerOff(leds));
   }
-  return Promise.all(p).then((res) => {
-      console.log('res',res);}
-    );
+  return Promise.all(p);
 }
 
 function checkDifference(data) {
   var mandatory = config.scope,
-    i = 0,
     p = [];
 
-  function cb() {
-    i++;
-    return save[mandatory[i]] = data[mandatory[i]];
-  };
-
-  while (i < mandatory.length) {
-    console.log('while', i, mandatory[i]);
-    setLed(data, mandatory[i], cb);
-    // save[mandatory[i]] = data[mandatory[i]];
-    i++;
+  for (var i = 0; i < mandatory.length; i++) {
+    p.push(function() {
+      console.log('func', data, mandatory[i]);
+      setLed(data, mandatory[i]);
+    });
+    save[mandatory[i]] = data[mandatory[i]];
   }
 }
 
