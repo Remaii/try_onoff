@@ -54,7 +54,7 @@ function setLed(data, key) {
     } else {
       p.push(show.powerOff(leds[0]));
     }
-    save[key] = data[key];
+    // save[key] = data[key];
   } else if ('total' === key) {
     console.log('total', diff);
     
@@ -65,7 +65,7 @@ function setLed(data, key) {
     } else {
       p.push(show.powerOff(leds[1]));
     }
-    save[key] = data[key];
+    // save[key] = data[key];
   } else if ('grp' === key) {
     console.log('grp', diff);
     if (diff > 0) {
@@ -75,7 +75,7 @@ function setLed(data, key) {
     } else {
       p.push(show.powerOff(leds[1]));
     }
-    save[key] = data[key];
+    // save[key] = data[key];
   } else {
     console.log('else', diff);
     p.push(show.powerOff(leds));
@@ -84,51 +84,15 @@ function setLed(data, key) {
 }
 
 function checkDifference(data) {
-  var mandatory = config.scope;
+  var mandatory = config.scope,
+    p = [];
 
   for (var i = 0; i < mandatory.length; i++) {
-    setLed(data, mandatory[i]);
+    p.push(setLed(data, mandatory[i]));
     save[mandatory[i]] = data[mandatory[i]];
   }
+  return async.series(p, (err) => { console.log(err); });
 }
-
-// function verifTotal(led, data, key) {
-//   if (data[key] > save.total) {
-//     if (debug) { console.log('data[key] > save.total', data[key], key); }
-
-//     if (led.readSync() === 0) {
-//       led.writeSync(1);
-//     }
-//   } else {
-//     if (debug) { console.log('data[key] <= save.total', data[key], key); }
-
-//     if (led.readSync() === 1) {
-//       led.writeSync(0);
-//     }
-//   }
-//   save.total = data[key];
-// }
-
-// function verifOnb(led, data, key) {
-//   if (data[key] < save.onb) {
-//     if (debug) { console.log('data[key] < save.onb', data[key], key); }
-
-//     if (led.readSync() === 0) {
-//       led.writeSync(1);
-//     }
-//   } else if (data[key] > save.onb) {
-//     if (debug) { console.log('data[key] > save.onb', data[key], key); }
-
-//     show.flash(led, 250, (time / 2));
-//   } else {
-//     if (debug) { console.log('data[key] >= save.onb', data[key], key); }
-
-//     if (led.readSync() === 1) {
-//       led.writeSync(0);
-//     }
-//   }
-//   save.onb = data[key];
-// }
 
 function getDataAndCompare() {
   request(config.options, function(err, result, body) {
@@ -138,27 +102,24 @@ function getDataAndCompare() {
       if (debug) {
         console.log('Request Error:', err);
       }
+      console.log('fakeRequest send :', tmp);
+      tmp = JSON.parse(show.fakeRequest());
     }
     
     if (body) {
       console.log('Response Body:', body);
       tmp = JSON.parse(body);
-    } else {
-      tmp = JSON.parse(show.fakeRequest());
-      console.log('fakeRequest send :', tmp);
     }
-    console.log(save, save.total);
+
     if (save.total && save.onb) {
       if (debug) { console.log('save is fully define', save); }
       
       checkDifference(tmp);
-      // save = tmp;
     }
     else {
       if (debug) { console.log('firstLaunch save:', save); }
       
       checkDifference(tmp);
-      // save = tmp;
     }
   });
 }
@@ -183,6 +144,7 @@ if (!launch) {
   launch = true;
   console.log('launch:', launch, '=>', time + "ms, " + counter + "s, debug: " + debug);
   getDataAndCompare();
+
   if (debug) { console.log('save', save); }
   inter = setInterval(showInter, 1000);
   setTimeout(showTime, time);
