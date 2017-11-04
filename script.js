@@ -52,9 +52,9 @@ function setLed(data, key, cb) {
   if ('onb' === tmp.key) {
     if (debug) { console.log('onb', diff); }
     if (diff > 0) {
-      show.flash(leds[0], 100, 10000);
+      show.flash(leds[0], 100, config.effectDuration);
     } else if (diff < 0) {
-      show.solder(leds, 10000);
+      show.solder(leds, config.effectDuration);
     } else {
       show.powerOff(leds[0]);
     }
@@ -62,24 +62,22 @@ function setLed(data, key, cb) {
     if (debug) { console.log('total', diff); }
     
     if (diff > 0) {
-      show.flash(leds[1], 100, 10000);
+      show.flash(leds[1], 250, config.effectDuration);
     } else if (diff < 0) {
-      show.pingpong(leds, 100, 10000);
+      show.pingpong(leds, 100, config.effectDuration);
     } else {
       show.powerOff(leds[1]);
     }
-  } 
-  // else if ('grp' === tmp.key) {
-  //   if (debug) { console.log('grp', diff); }
+  } else if ('grp' === tmp.key) {
+    if (debug) { console.log('grp', diff); }
   //   if (diff > 0) {
-  //     show.pingpong(leds, 200, 10000);
+  //     show.pingpong(leds, 200, config.effectDuration);
   //   } else if (diff < 0) {
-  //     show.fix(led[1], 100, 10000);
+  //     show.fix(led[1], 100, config.effectDuration);
   //   } else {
   //     show.powerOff(leds[1]);
   //   }
-  // } 
-  else {
+  } else {
     if (debug) { console.log('else', diff); }
     show.powerOff(leds);
   }

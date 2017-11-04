@@ -118,8 +118,12 @@ function solder(led, time) {
 };
 
 function powerOff(leds) {
-	for (var i = 0; i < leds.length; i++) {
-		leds[i].writeSync(0);
+	if (Array.isArray(leds)) {
+		for (var i = 0; i < leds.length; i++) {
+			leds[i].writeSync(0);
+		}
+	} else {
+		leds.writeSync(0);
 	}
 };
 
