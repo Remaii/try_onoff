@@ -80,8 +80,7 @@ function setLed(data, key, cb) {
     console.log('else', diff);
     p.push(show.powerOff(leds));
   }
-  console.log(p);
-  return async.series(p, (err) => { console.log('error:', err); });
+  Promise.all(p).then((res)=>{console.log(res);});
 }
 
 function checkDifference(data) {
