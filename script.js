@@ -50,57 +50,46 @@ function setLed(data, key, cb) {
   var p = [];
 
   if ('onb' === tmp.key) {
-    console.log('onb', diff);
+    if (debug) { console.log('onb', diff); }
     if (diff > 0) {
-      p.push(show.flash(leds[0], 100, 10000));
+      show.flash(leds[0], 100, 10000);
     } else if (diff < 0) {
-      p.push(show.solder(leds, 10000));
+      show.solder(leds, 10000);
     } else {
-      p.push(show.powerOff(leds[0]));
+      show.powerOff(leds[0]);
     }
-    // save[key] = data[key];
   } else if ('total' === tmp.key) {
-    console.log('total', diff);
+    if (debug) {co nsole.log('total', diff); }
     
     if (diff > 0) {
-      p.push(show.flash(leds[0], 100, 10000));
+      show.flash(leds[0], 100, 10000);
     } else if (diff < 0) {
-      p.push(show.pingpong(leds, 100, 10000));
+      show.pingpong(leds, 100, 10000);
     } else {
-      p.push(show.powerOff(leds[1]));
+      show.powerOff(leds[1]);
     }
-    // save[key] = data[key];
   } else if ('grp' === tmp.key) {
-    console.log('grp', diff);
+    if (debug) { console.log('grp', diff); }
     if (diff > 0) {
-      p.push(show.pingpong(leds, 200, 10000));
+      show.pingpong(leds, 200, 10000);
     } else if (diff < 0) {
-      p.push(show.fix(led[1], 100, 10000));
+      show.fix(led[1], 100, 10000);
     } else {
-      p.push(show.powerOff(leds[1]));
+      show.powerOff(leds[1]);
     }
-    // save[key] = data[key];
   } else {
-    console.log('else', diff);
-    p.push(show.powerOff(leds));
+    if (debug) {c onsole.log('else', diff); }
+    show.powerOff(leds);
   }
-  return Promise.all(p);
 }
 
 function checkDifference(data) {
-  var mandatory = config.scope,
-    p = [];
+  var mandatory = config.scope;
 
   for (var i = 0; i < mandatory.length; i++) {
-    p.push(function() {
-      console.log('func', data, mandatory[i]);
-      setLed(data, mandatory[i]);
-    });
-    console.log(p);
+    setLed(data, mandatory[i]);
     save[mandatory[i]] = data[mandatory[i]];
   }
-  
-  async.series(p,(err)=>{console.log(err);});
 }
 
 function getDataAndCompare() {
