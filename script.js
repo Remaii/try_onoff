@@ -4,7 +4,7 @@
 var config = require('../config1');
 var show = require('./led');
 var request = require('request');
-
+var async = require('async');
 var gpio = require('onoff').Gpio;
 
 // // GPIO
