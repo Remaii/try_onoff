@@ -97,9 +97,10 @@ function checkDifference(data) {
       setLed(data, mandatory[i]);
     });
     console.log(p);
-    async.series(p,(err)=>{console.log(err);})
     save[mandatory[i]] = data[mandatory[i]];
   }
+  
+  async.series(p,(err)=>{console.log(err);});
 }
 
 function getDataAndCompare() {
