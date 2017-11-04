@@ -9,6 +9,7 @@ var config = require('../config1'),
 
 // Globals variables
 var leds = [],
+	status = {},
 	launch = false;
 
 function determineLeds() {
@@ -21,10 +22,32 @@ function determineLeds() {
 	return tmp;
 }
 
-function sayHello(time) {
-	_.each(leds, function(led, index) {
-		show.flash(led, 100 * index, config.effectDuration);
+function setStatus() {
+	_.each(status, function(elem) {
+		console.log(elem);
+		if (config.pins.indexOf(elem.number) >= 0) {
+			console.log('find it!', elem.number);
+		}
 	});
+}
+
+function getStatus(time) {
+	request(config.options_status, function(err, result, body) {
+    var tmp = {};
+
+    if (err) {
+      if (debug) {
+        console.log('Request Error:', err);
+      }
+      return ;
+    }
+    
+    if (body) {
+      console.log('Response Body:', body);
+      status = JSON.parse(body);
+    }
+    return setStatus();
+  });
 }
 
 if (leds.length <= 0) {
@@ -34,5 +57,5 @@ if (leds.length <= 0) {
 
 if (!launch && leds.length > 0) {
 	console.log('leds', leds);
-	sayHello(2);
+	getStatus();
 }
