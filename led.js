@@ -29,7 +29,7 @@ var flash = function(led, timeval, time) {
 		}
 	};
 	inter = setInterval(showInter, interval);
-  setTimeout(showTime, duration);
+  return setTimeout(showTime, duration);
 };
 
 var pingpong = function(led, timeval, time) {
