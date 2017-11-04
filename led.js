@@ -27,10 +27,10 @@ var flash = function(led, timeval, time) {
 	  if (led.readSync() === 1) {
 			led.writeSync(0);
 		}
+		return 1;
 	};
 	inter = setInterval(showInter, interval);
   setTimeout(showTime, duration);
-  return inter;
 };
 
 var pingpong = function(led, timeval, time) {
