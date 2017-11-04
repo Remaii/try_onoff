@@ -92,9 +92,10 @@ function checkDifference(data) {
     return save[mandatory[i]] = data[mandatory[i]];
   }
 
-  for (i < mandatory.length; i++) {
+  for (i < mandatory.length) {
     p.push((cb) => {setLed(data,madatory[i])});//setLed(data, mandatory[i]));
     // save[mandatory[i]] = data[mandatory[i]];
+    i++;
   }
   return async.series(p, (err) => { console.log('error:', err); });
 }
