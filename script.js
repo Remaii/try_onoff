@@ -85,13 +85,18 @@ function setLed(data, key) {
 
 function checkDifference(data) {
   var mandatory = config.scope,
+    i = 0,
     p = [];
 
-  for (var i = 0; i < mandatory.length; i++) {
-    p.push(setLed(data, mandatory[i]));
-    save[mandatory[i]] = data[mandatory[i]];
+  function cb() {
+    return save[mandatory[i]] = data[mandatory[i]];
   }
-  return async.series(p, (err) => { console.log(err); });
+
+  for (i < mandatory.length; i++) {
+    p.push((cb) => {setLed(data,madatory[i])});//setLed(data, mandatory[i]));
+    // save[mandatory[i]] = data[mandatory[i]];
+  }
+  return async.series(p, (err) => { console.log('error:', err); });
 }
 
 function getDataAndCompare() {
