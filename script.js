@@ -62,7 +62,7 @@ function setLed(data, key, cb) {
     if (debug) { console.log('total', diff); }
     
     if (diff > 0) {
-      show.flash(leds[0], 100, 10000);
+      show.flash(leds[1], 100, 10000);
     } else if (diff < 0) {
       show.pingpong(leds, 100, 10000);
     } else {
