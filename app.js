@@ -28,4 +28,11 @@ if (leds.length <= 0) {
 
 if (!launch && leds.length > 0) {
 	console.log('leds', leds);
+	_.each(leds, function(led) {
+		if (led.readSync()) {
+			led.writeSync(1);
+		} else {
+			led.writeSync(0);
+		}
+	});
 }
