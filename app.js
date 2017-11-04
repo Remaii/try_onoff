@@ -21,6 +21,20 @@ function determineLeds() {
 	return tmp;
 }
 
+function sayHello(time) {
+	for (var i = 0; i < time; i++) {
+		_.each(leds, function(led) {
+			if (!led.readSync()) {
+				console.log('1', led.readSync());
+				led.writeSync(1);
+			} else {
+				console.log('2', led.readSync());
+				led.writeSync(0);
+			}
+		});
+	}
+}
+
 if (leds.length <= 0) {
 	console.log('post deter');
 	leds = determineLeds();
@@ -28,13 +42,5 @@ if (leds.length <= 0) {
 
 if (!launch && leds.length > 0) {
 	console.log('leds', leds);
-	_.each(leds, function(led) {
-		if (led.readSync()) {
-			console.log('1', led.readSync());
-			led.writeSync(1);
-		} else {
-			console.log('2', led.readSync());
-			led.writeSync(0);
-		}
-	});
+	sayHello(2);
 }
