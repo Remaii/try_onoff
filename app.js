@@ -23,6 +23,7 @@ function determineLeds() {
 }
 
 function setStatus() {
+	console.log('status', status);
 	_.each(status, function(elem) {
 		console.log(elem);
 		if (config.pins.indexOf(elem.number) >= 0) {
