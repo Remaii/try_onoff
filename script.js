@@ -42,10 +42,14 @@ function deterDiff(data, key) {
 }
 
 function setLed(data, key, cb) {
-  var diff = deterDiff(data, key);
+  var tmp = {
+    data: data,
+    key: key,
+  };
+  var diff = deterDiff(tmp.data, tmp.key);
   var p = [];
 
-  if ('onb' === key) {
+  if ('onb' === tmp.key) {
     console.log('onb', diff);
     if (diff > 0) {
       p.push(show.flash(leds[0], 100, 10000));
@@ -55,7 +59,7 @@ function setLed(data, key, cb) {
       p.push(show.powerOff(leds[0]));
     }
     // save[key] = data[key];
-  } else if ('total' === key) {
+  } else if ('total' === tmp.key) {
     console.log('total', diff);
     
     if (diff > 0) {
@@ -66,7 +70,7 @@ function setLed(data, key, cb) {
       p.push(show.powerOff(leds[1]));
     }
     // save[key] = data[key];
-  } else if ('grp' === key) {
+  } else if ('grp' === tmp.key) {
     console.log('grp', diff);
     if (diff > 0) {
       p.push(show.pingpong(leds, 200, 10000));
@@ -80,7 +84,9 @@ function setLed(data, key, cb) {
     console.log('else', diff);
     p.push(show.powerOff(leds));
   }
-  Promise.all(p).then((res)=>{console.log('res',res);cb();});
+  return Promise.all(p).then((res) => {
+      console.log('res',res);}
+    );
 }
 
 function checkDifference(data) {
@@ -97,7 +103,7 @@ function checkDifference(data) {
     console.log('while', i, mandatory[i]);
     setLed(data, mandatory[i], cb);
     // save[mandatory[i]] = data[mandatory[i]];
-    // i++;
+    i++;
   }
 }
 
