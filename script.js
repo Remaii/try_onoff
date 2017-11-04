@@ -31,7 +31,7 @@ var save = {
 };
 
 function deterDiff(data, key) {
-  console.log(save, data, key);
+  console.log('deterDiff,s,d,k', save, data, key, data[key] - save[key], save[key] - data[key]);
   if (data[key] > save[key]) {
     return data[key] - save[key];
   } else if (data[key] < save[key]) {
