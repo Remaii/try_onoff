@@ -30,10 +30,10 @@ if (!launch && leds.length > 0) {
 	console.log('leds', leds);
 	_.each(leds, function(led) {
 		if (led.readSync()) {
-			console.log('1');
+			console.log('1', led.readSync());
 			led.writeSync(1);
 		} else {
-			console.log('2');
+			console.log('2', led.readSync());
 			led.writeSync(0);
 		}
 	});
