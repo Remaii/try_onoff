@@ -10,6 +10,7 @@ var config = require('../config1'),
 // Globals variables
 var leds = [],
 	status = {},
+	stats = {},
 	launch = false,
 	debug = (process.env.DEBUG === 'true' ? true : false) || false;
 
@@ -26,7 +27,6 @@ function setStatus() {
 
 	_.each(status, function(elem) {
 		_.each(leds, function(led) {
-			console.log(led.readSync());
 			if (led.gpio === elem.number && elem.state !== led.readSync()) {
 				console.log('setStatus of:', elem.name, 'gpio#:', elem.number, 'state:', elem.state);
 				led.writeSync(elem.state);
@@ -45,8 +45,9 @@ function getStatus(time) {
     }
     
     if (body) {
-      status = JSON.parse(body);
-      console.log('Response Body:', status);
+      stats = JSON.parse(body);
+      status = stats.status;
+      console.log('Response Body:', stats);
     }
     return setStatus();
   });
@@ -55,7 +56,7 @@ function getStatus(time) {
 function showTime() {
 	console.log('showTime');
 	getStatus();
-  launch = false;
+  launch = true;
   setTimeout(showTime, config.duree);
 }
 
