@@ -59,7 +59,7 @@ function setLed(data, key, cb) {
       show.powerOff(leds[0]);
     }
   } else if ('total' === tmp.key) {
-    if (debug) {co nsole.log('total', diff); }
+    if (debug) { console.log('total', diff); }
     
     if (diff > 0) {
       show.flash(leds[0], 100, 10000);
