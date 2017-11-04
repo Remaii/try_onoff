@@ -22,17 +22,9 @@ function determineLeds() {
 }
 
 function sayHello(time) {
-	for (var i = 0; i < time; i++) {
-		_.each(leds, function(led) {
-			if (!led.readSync()) {
-				console.log('1', led.readSync());
-				led.writeSync(1);
-			} else {
-				console.log('2', led.readSync());
-				led.writeSync(0);
-			}
-		});
-	}
+	_.each(leds, function(led) {
+		show.flash(led, 100, config.effectDuration);
+	});
 }
 
 if (leds.length <= 0) {
