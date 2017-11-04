@@ -22,8 +22,8 @@ function determineLeds() {
 }
 
 function sayHello(time) {
-	_.each(leds, function(led) {
-		show.flash(led, 100, config.effectDuration);
+	_.each(leds, function(led, index) {
+		show.flash(led, 100 * index, config.effectDuration);
 	});
 }
 
