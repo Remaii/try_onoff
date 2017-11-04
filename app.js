@@ -15,7 +15,7 @@ function determineLeds() {
 	console.log('deter');
 	var tmp = [];
 	_.each(config.pins, function(value) {
-		tmp.push(()=>{ return new gpio(value, 'out'); });
+		tmp.push(new gpio(value, 'out'));
 	});
 	console.log('tmp', tmp);
 	return tmp;
