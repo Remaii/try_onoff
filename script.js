@@ -93,7 +93,7 @@ function checkDifference(data) {
   };
 
   while (i < mandatory.length) {
-    p.push((cb) => { setLed(data, madatory[i]); });//setLed(data, mandatory[i]));
+    p.push((cb) => { setLed(data, mandatory[i]); });//setLed(data, mandatory[i]));
     // save[mandatory[i]] = data[mandatory[i]];
     i++;
   }
