@@ -55,11 +55,10 @@ function getStatus(time) {
   });
 }
 
-function showTime() {
-	console.log('showTime');
+function refreshTime() {
+	console.log('refreshTime');
 	getStatus();
-  launch = true;
-  setTimeout(showTime, config.duree);
+  setTimeout(refreshTime, config.refresh);
 }
 
 if (leds.length <= 0) {
@@ -69,5 +68,5 @@ if (leds.length <= 0) {
 
 if (!launch && leds.length > 0) {
 	getStatus();
-  setTimeout(showTime, config.duree);
+  setTimeout(refreshTime, config.refresh);
 }
