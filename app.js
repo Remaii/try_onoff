@@ -55,17 +55,17 @@ function getStatus(time) {
   });
 }
 
-var old = new Date();
+var old = Date.now();
 
 function refreshTime() {
-	var time = new Date();
-	console.log('refreshTime', old.now() - time.now());
+	var time = Date.now();
+	console.log('refreshTime', old - time);
 	getStatus();
   setTimeout(refreshTime, config.refresh);
 }
 
 if (leds.length <= 0) {
-	console.log('firstLaunch' + old.now() + '\n\n');
+	console.log('firstLaunch' + old + '\n\n');
 	leds = determineLeds();
 }
 
