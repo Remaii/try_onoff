@@ -31,7 +31,7 @@ function setStatus() {
 				console.log((elem.state === true ? 1 : 0), led.readSync(), (elem.state === true ? 1 : 0) !== led.readSync());
 				if ((elem.state === true ? 1 : 0) !== led.readSync()) {
 					console.log('setStatus of:', elem.name, 'gpio#:', elem.number, 'state:', elem.state);
-					led.writeSync((elem.state === "true" ? 1 : 0));
+					led.writeSync((elem.state === true ? 1 : 0));
 				}
 			}
 		});
