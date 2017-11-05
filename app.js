@@ -59,9 +59,10 @@ var old = Date.now();
 
 function refreshTime() {
 	var time = Date.now();
-	console.log('refreshTime', old - time);
+	console.log('refreshTime', time - old);
 	getStatus();
   setTimeout(refreshTime, config.refresh);
+	old = time;
 }
 
 if (leds.length <= 0) {
