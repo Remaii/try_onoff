@@ -59,13 +59,13 @@ var old = new Date();
 
 function refreshTime() {
 	var time = new Date();
-	console.log('refreshTime', old - time);
+	console.log('refreshTime', old.now() - time.now());
 	getStatus();
   setTimeout(refreshTime, config.refresh);
 }
 
 if (leds.length <= 0) {
-	console.log('firstLaunch'+old+'\n\n');
+	console.log('firstLaunch' + old.now() + '\n\n');
 	leds = determineLeds();
 }
 
