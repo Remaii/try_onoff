@@ -28,9 +28,8 @@ function setStatus() {
 	_.each(status, function(elem) {
 		_.each(leds, function(led) {
 			if (led.gpio === elem.number) {
-				console.log((elem.state === true ? 1 : 0), led.readSync(), (elem.state === true ? 1 : 0) !== led.readSync());
 				if ((elem.state === true ? 1 : 0) !== led.readSync()) {
-					console.log('setStatus of:', elem.name, 'gpio#:', elem.number, 'state:', elem.state);
+					if (debug) { console.log('setStatus of:', elem.name, 'gpio#:' + elem.number, 'state:', elem.state); }
 					led.writeSync((elem.state === true ? 1 : 0));
 				}
 			}
