@@ -67,9 +67,13 @@ function refreshTime() {
 if (leds.length <= 0) {
 	console.log('firstLaunch' + old + '\n\n');
 	leds = determineLeds();
+	_.each(leds, function(led) {
+		show.powerOff(led);
+	});
 }
 
 if (!launch && leds.length > 0) {
 	getStatus();
   setTimeout(refreshTime, config.refresh);
+	launch = true;
 }
