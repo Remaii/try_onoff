@@ -63,6 +63,7 @@ function showTime() {
 }
 
 if (leds.length <= 0) {
+	console.log('firstLaunch\n\n');
 	leds = determineLeds();
 }
 
