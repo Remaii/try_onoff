@@ -58,13 +58,14 @@ function getStatus(time) {
 var old = new Date();
 
 function refreshTime() {
-	console.log('refreshTime', old);
+	var time = new Date();
+	console.log('refreshTime', old - time);
 	getStatus();
   setTimeout(refreshTime, config.refresh);
 }
 
 if (leds.length <= 0) {
-	console.log('firstLaunch\n\n');
+	console.log('firstLaunch'+old+'\n\n');
 	leds = determineLeds();
 }
 
