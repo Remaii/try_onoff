@@ -55,8 +55,10 @@ function getStatus(time) {
   });
 }
 
+var old = new Date.now();
+
 function refreshTime() {
-	console.log('refreshTime');
+	console.log('refreshTime', old - new Date.now());
 	getStatus();
   setTimeout(refreshTime, config.refresh);
 }
